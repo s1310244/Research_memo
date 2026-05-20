@@ -20,15 +20,15 @@ SNN_top
 				SNPC_cntrl
        			LIF_neuron *64
 				xbar
-					sram_sp_w8_b64_freepdk4
+					sram_sp_w8_b64_freepdk4 (R0) 
 			SNPC1
 				SNPC_cntrl
        			LIF_neuron *64
 				xbar
-					sram_sp_w8_b64_freepdk4
+					sram_sp_w8_b64_freepdk4 (R0)
 			SNPC2
 				SNPC_cntrl
        			LIF_neuron *64
 				xbar
-					sram_sp_w8_b64_freepdk4
+					sram_sp_w8_b64_freepdk4 (R0)
 ```

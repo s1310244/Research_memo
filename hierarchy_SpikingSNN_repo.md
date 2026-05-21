@@ -6,14 +6,13 @@ A hierarchy of the files in ```RTL``` folder in ```RTL-simulation``` folder in `
 SNN_top
 	SNN_Slave_If_v1_1_S00_AXI
 	SNN_wrapper
-		spike_rom
-			input_noise
-		bias_l1_rom
-		bias_l2_rom
-		bias_l3_rom
-		weights_l1_rom
-		weights_l2_rom
-		weights_l3_rom
+		spike_rom(input_noise.mem)
+		bias_l1_rom(fc1_b.mem)
+		bias_l2_rom(fc2_b.mem)
+		bias_l3_rom(fc3_b.mem)
+		weights_l1_rom(fc1.mem)
+		weights_l2_rom(fc2.mem)
+		weights_l3_rom(fc3.mem)
 		spike_counter
 		SNPC_top
 			SNPC0

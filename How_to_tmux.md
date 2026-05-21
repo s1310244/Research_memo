@@ -1,0 +1,1 @@
+i want to use tmux for asic synthesis using design compiler, i did last time and failed and progress was not saved either... how to enable it, so that i can continue from where i left, and avoid progress getting lost from collapsing... i wanna enable tmux for such case... also tell in detail how to enable and use... in japanese

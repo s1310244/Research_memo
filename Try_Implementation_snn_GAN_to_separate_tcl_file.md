@@ -229,3 +229,28 @@ write_file -format ddc -hierarchy -output ./output_files/${base_name}_${runname}
 echo ">>> PART 4 SUCCESSFUL: Final netlist generated successfully!"
 exit
 ```
+
+
+### in addition
+a other idea:  
+A code block To maintain the structure according to the code as much as possible
+```
+#
+# IMPORTANT LARGE-DESIGN SETTINGS ()
+#
+
+# DO NOT FLATTEN
+# ungroup -all -flatten
+
+# Prevent massive restructuring
+set_structure false
+
+# Preserve hierarchy
+set compile_preserve_subdesign_interfaces true
+
+# Keep SRAMs untouched
+set_dont_touch [get_cells */R0]
+```
+
+
+Since it is compiled from the lower level, if you only operate the paremeters from the upper level, the bit width of the interface of he lower level port will mismatch, so adjust the parameters from the lower level.  

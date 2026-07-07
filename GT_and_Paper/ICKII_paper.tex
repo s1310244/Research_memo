@@ -1,0 +1,248 @@
+\documentclass[conference]{IEEEtran}
+\ifCLASSOPTIONcompsoc
+  \usepackage[nocompress]{cite}
+\else
+  \usepackage{cite}
+\fi
+\usepackage[inkscapelatex=false]{svg}
+\usepackage{url} 
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{color,soul}
+\usepackage{ragged2e}
+\usepackage{algorithm, algorithmic}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{makecell}
+\newcommand\Myperm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand{\argmin}{\mathop{\rm argmin}\limits}
+\newcommand{\mre}{\mathop{\rm MRE}\limits}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage[deletedmarkup=sout]{changes}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\graphicspath{ {./imgs/} }
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+
+\newcommand\hlx[1]{\colorbox{yellow}{\textcolor{red}{#1}}}
+\usepackage[para,online,flushleft]{threeparttable}
+% --- Reduce space around tables and figures (IEEE-compliant) ---
+\setlength{\textfloatsep}{4pt plus 1pt minus 1pt}  % space between text and top/bottom floats
+\setlength{\floatsep}{3pt plus 1pt minus 1pt}      % space between two floats
+\setlength{\intextsep}{3pt plus 1pt minus 1pt}     % space above/below in-text floats
+\setlength{\abovecaptionskip}{2pt}                 % space above caption
+\setlength{\belowcaptionskip}{2pt}                 % space below caption
+\renewcommand{\arraystretch}{0.9}                  % shrink row height slightly
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\usepackage{hyperref}
+
+\usepackage{xr}
+\usepackage{pifont}
+
+% Define readable circled number commands
+\newcommand{\circone}{\ding{172} }
+\newcommand{\circtwo}{\ding{173} }
+\newcommand{\circthree}{\ding{174} }
+\newcommand{\circfour}{\ding{175} }
+\newcommand{\circfive}{\ding{176} }
+\newcommand{\circsix}{\ding{177} }
+\newcommand{\circseven}{\ding{178} }
+\newcommand{\circeight}{\ding{179} }
+\newcommand{\circnine}{\ding{180} }
+\newcommand{\circten}{\ding{181} }
+
+\begin{document}
+\title{%GreenMorph: Energy-Efficient Online STDP Learning for Carbon-Aware Neuromorphic Computing
+% FPGAGAN: title to be updated}
+FPGA-based Neuromorphic Acceleration of Spiking Neural Networks for Event-Driven Humanoid Robotics}
+\author{
+\IEEEauthorblockN{
+Aruki~Komatsuzaki,~Atharv~Sharma,~Yuga~Hanyu, 
+Khanh~N.~Dang
+}
+
+\IEEEauthorblockA{The School of Computer Science and Engineering, The University of Aizu, Aizu-Wakamatsu 965-8580, Fukushima, Japan.\\
+Email: \{s1310244, m5292015, m5291018, khanh\}@u-aizu.ac.jp}
+}
+
+\maketitle
+
+\begin{abstract}
+
+\begin{itemize}
+\item Trend of Generative AI/AI
+\item Highlighting importance of compressing memory and computation intensive neural networks
+\item Problem statement in brief
+\item Importance of need of reducing power consumption for AI application (low-power embedded systems)
+\item Summary of the work
+\item Obtained results (outcome of the work) - in numbers; i.e., utilization, power, comparison
+\end{itemize}
+
+---
+
+The growing computational and energy demands of modern AI models present significant challenges for deployment in embedded humanoid robotic systems. Neuromorphic computing, through event-driven processing and spike-based information representation, offers a promising approach for achieving low-power and low-latency intelligence.
+
+This work presents the implementation of a Spiking Neural Network (SNN)-based classification/generative model on the AMD VCK5000 Versal FPGA platform. The proposed neuromorphic accelerator exploits spike sparsity and FPGA reconfigurability to reduce computational complexity and memory access overhead while enabling real-time inference. A hardware–software co-design methodology is adopted to map SNN operations onto programmable logic for efficient execution.
+
+The implementation focuses on deploying the software SNN model onto FPGA hardware using a hardware–software co-design flow. It covers event-driven execution on reconfigurable hardware and enables analysis of system-level behavior, execution flow, and resource utilization of spike-based processing.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Neuromorphic Computing, Spiking Neural Networks, FPGA Acceleration, Event-Driven Computing, Humanoid Robotics.
+\end{IEEEkeywords}
+
+---
+
+What to add?
+
+1. Talk about AI / GenAI (GAN) trend
+2. Neural networks, like need of Neuromorphic computing (consisting of SNN)
+3. HW implementation of Neuromorphic Computing for energy efficiency.
+4. Deployment of neural network models on FPGA (resource constraints like limited LUTs, ROM, etc.)
+5. Introduction, proposed framework; software, hardware
+
+Refer to SpikingGAN 
+- for writing introduction (for idea)
+- for RTL simulation, as the structure of GAN is the same and output is going to be similar to SpikingGAN
+- Just imitate the ASIC part of SpikingGAN, replacing the ASIC outcome i.e., power consumption, area cost, etc. for the result you got for model topology 100 x 1200 x 1200 x 784 [ignore for now, we might consider it later]
+
+\textbf{[NOTE]} Ignore compression (quantization, etc.)
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+
+To talk about the recent/current trends related to Generative AI/AI/GANs in this section. Highlighting importance of energy-efficient neural network model; achievable through Spiking Neural Networks (SNNs). Importance of compression~\cite{han2015deep_compression} for memory intensive neural networks. Compressing the neural network through compression techniques; codebook quantization to be explored.
+
+Target of this research work is implementation of SNN-based GAN model physically on hardware. 
+% Synthesis through ASIC implementation as well to be explored. 
+
+---
+
+Compression is critical for memory and computation intensive neural networks.
+
+---
+
+\section{Proposed Framework} \label{sec:proposal}
+
+Bifurcation of implementation based on domains i.e., software and hardware. Overview of flow with figure.
+
+[SW] ANN-GAN modeling $\rightarrow$ Training $\rightarrow$ Converting into SNN $\rightarrow$ Exploring compression (4\,Mb) $\rightarrow$ Extracting weights, biases, and input spike $\rightarrow$ Validation through images created from ANN and SNN
+
+$\downarrow$
+
+% [HW] SNN-GAN modeling $\rightarrow$ Mapping weights, biases, and input spike into ROM $\rightarrow$ RTL simulation (validation) $\rightarrow$ Image reconstruction $\rightarrow$ ASIC implementation (synthesis) $\rightarrow$ FPGA implementation (synthesis and implementation) $\rightarrow$ FPGA physical implementation $\rightarrow$ Validation through SDK / [or real-time monitoring through VGA (OPTIONAL)]
+
+[HW] SNN-GAN modeling $\rightarrow$ Mapping weights, biases, and input spike into ROM $\rightarrow$ RTL simulation (validation) $\rightarrow$ Image reconstruction $\rightarrow$ FPGA implementation (synthesis and implementation) $\rightarrow$ FPGA physical implementation (programming \& debugging) $\rightarrow$ SDK development (validation)
+
+\subsection{Software}
+
+For software, the ANN model is to be modeled where layers, neuron count, and overall architecture will defined. To configure the structure, followed by training of ANN, and mapping the weights that are extracted during ANN-to-SNN conversion~\cite{7280696}, in SNN with validation (image generated by ANN and SNN).
+
+\textbf{TO-DO:}
+\begin{itemize}
+\item Configuring the model structure, trying structure $100\times1024\times1024\times784$ (and more, to be compact so that can be fitted on FPGA)
+\item Compression techniques on the model, i.e., INT8 Codebook using various quantizations (INT7, INT6, INT5, INT4, etc.). For implementation on FPGA, model should not exceed more than 4\,Mb with least accuracy drop (if to be implemented using MRAM).
+\item Extracting the weights, biases, and input spikes for HW implementation.
+\end{itemize} 
+
+\subsection{Hardware}
+
+ Architecture of model in hardware. Usage of OpenRAM~\cite{7827670} based SRAM macros for storing synaptic weights. OpenRAM based SRAM macro of $1024\times8$ to be created. Explaining the working in terms of hardware, i.e., neuron layers, synapse crossbar, SNPC layers, data flow, etc.
+
+ \textbf{TO-DO:}
+\begin{itemize}
+\item Obtaining OpenRAM SRAM macro for size $1024\times8$
+\item Modification of RTL files in accordance with the software model (i.e., neuron array size, SRAM size, etc.)
+% \item Using extracted weights inside weights, biases, and spike ROM module for RTL simulation, ASIC implementation (synthesis), and FPGA implementation (synthesis, implementation, and deplyoment).
+% \item Obtain reconstructed images through RTL simulation, area cost and power consumption through ASIC synthesis, and utlization on FPGA and power consumption on FPGA through synthesis and implementation.
+\item Exploring the implementation of compressed weights and biases on HW (i.e., codebook quantization, pruning, Huffman coding)
+\item Using extracted weights inside weights, biases, and spike ROM module for RTL simulation and FPGA implementation (synthesis, implementation, and deployment).
+\item Obtain results: reconstructed images through RTL simulation + utlization and power consumption on FPGA through synthesis, implementation, and SDK validation.
+\end{itemize} 
+
+\section{Evaluation}\label{sec:evaluation}
+
+\subsection{Computation Comparison}
+
+Computation comparison to be performed between ANN and converted SNN model (execution time) for differnt number of images.
+
+\subsection{RTL Logic Validation}
+
+Adding a brief detail related to validation of the SNN-based GAN model through RTL simulation.
+
+\subsubsection{Image Reconstruction}
+
+Illustration of the images reconstructed through RTL simulation.
+
+% \subsubsection{VGA for Real-Time Image Reconstruction [OPTIONAL]}
+
+% VGA can be integrated for monitoring the real-time output of the model deployed on FPGA. Two FPGAs can be used, where FPGA-1 would be used for implementing the GAN model itself, FPGA-2 (e.g., Basys 3) would be used for enabling VGA, linking both FPGAs through UART or SPI. 
+
+% \subsection{ASIC Implementation}
+
+% Performing ASIC synthesis of the SNN-based GAN model for defined structure.
+
+% Adding report for area cost; bifurcated for combinational, sequential, macros, etc., with static (leakage) and dynamic power consumption report. 
+
+\subsection{FPGA Implementation}
+
+Performing FPGA synthesis and implementation of the SNN-based GAN model.
+
+Adding utilization report; i.e., LUTs, FFs, BRAM, etc., and power consumption report for idle and on-chip energy usage.
+
+Board possibility for FPGA implementation:
+
+\begin{itemize}
+% \item \textbf {Arty A7-100T}: On-chip memory - Block RAM size of 4,860 Kbits (607.5 KB). Off-chip memory - DDR3L SDRAM size of 256 MB
+\item \textbf {EDX-008-70T}: On-chip memory - Block RAM size of 4,860 Kbits. Off-chip memory - MRAM size of 20 Mbits, and DDR3 SDRAM size of 1 Gbits (128 MB)
+\end{itemize}
+
+\section{Conclusion} \label{sec:conclusion}
+
+Concluding using obtained results for FPGA. Impact of the work, i.e., compressing neural network for efficient deployment as embedded system, energy-efficiency can be realized based on compression. 
+
+\section{Acknowledgement}
+
+Can be skipped [?]
+
+% \section{Online References Related to Work}
+
+% These references are just for review purpose only.
+
+% \begin{itemize}
+% \item \href{https://github.com/mightydeveloper/Deep-Compression-PyTorch/tree/master}{Deep Compression: Implementation (GitHub)}
+% \item \href{https://www.kaggle.com/code/dariocioni/deep-compression}{Deep Compression: Implementation (Kaggle)}
+% \item \href{https://github.com/songhan/Deep-Compression-AlexNet}{Compression: Implementation (GitHub) [Author]}
+% \item \href{https://github.com/ciodar/deep-compression}{Deep Compression: Implementation (GitHub)}
+% \item \href{https://github.com/enjoy-digital/litex}{GitHub: LiteX}
+
+% \item \href{https://github.com/BlagojeBlagojevic/vga_verilog}{VGA: Using BASYS-3}
+% \item \href{https://github.com/eshansurendra/UART-FPGA}{GitHub: Connecting 2 FPGA boards}
+% \item \href{https://forum.digilent.com/topic/21541-how-to-connect-two-fpga-boards/}{FORUM: Connecting 2 FPGA boards}
+% \item \href{https://github.com/ChandulaNethmal/UART-communication-Link-on-a-FPGA-using-Verilog-HDL}{GitHub: Connecting 2 FPGA boards}
+% \end{itemize}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv, references, under-review}
+
+\end{document}

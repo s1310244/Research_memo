@@ -54,5 +54,9 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
      ```
    - Convert ANN to SNN(テストも同時に行っている)  
    ```python run_snn.py```   
-6. 
+6. Weights and Input Noise Extraction
+   - To extract weights and biases of each layer, use the below command  
+   ```python export_mem.py```
+   - To extract the input noise, use the below script  
+   ```python export_noise.py```
 

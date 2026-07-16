@@ -1,6 +1,6 @@
 SpikingGANにあるtutorialに従いUBICのwindows環境でコマンドプロンプトを使いVCK5000に実装するまで  
 
-### Python install
+## Python install
 1. インストーラーをダウンロードする:Python公式サイト (python.org) にアクセスし、黄色の「Download Python 3.x.x」(versionは3.11もしくは3.12)ボタンを押してインストーラーをダウンロードします。  
 2. インストーラーを起動し、チェックを入れる（超重要）:これを忘れるとコマンドが認識されません。ダウンロードしたファイルを開きます。最初の画面の下部にある 「Add python.exe to PATH」 （または「Add Python 3.x to PATH」）というチェックボックスに必ずチェックを入れます。  
 3. インストールを実行する:チェックを入れたら、一番上の「Install Now」をクリックします。（すでにインストール済みの場合は「Modify」を選び、次の画面で「Add Python to environment variables」にチェックを入れて進めてください）  
@@ -16,7 +16,7 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 3.関連プログラムをアンインストールする:リストに表示された Python 3.x.x と Python Launcher の両方について、右端の「･･･」メニュー（またはアイコン）をクリックし、「アンインストール」を実行します。
 4.PCを再起動する:古い環境変数の設定などを完全にクリアするため、一度パソコンを再起動します。  
 ```
-### SW
+## SW
 1. 次のコマンドを```SpikingGAN/SW-simulation/scripts```下で実行する。  
    ```python -m venv ../myenv```  
    - 構築した仮想環境の削除
@@ -59,4 +59,15 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    ```python export_mem.py```
    - To extract the input noise, use the below script  
    ```python export_noise.py```
+   - 上の二つのextractを実行した後、```SW-simulation/MEM```内のファイルを```RTL-simulation/Data```へコピーする  
+
+## HW
+### FPGA Implementation
+1. Open the vivado
+   - ```source ~/AMDDesignTools/2026.1/Vivado/settings64.bat```の代わりに、Windows環境で AMD Vivado の環境設定を行うために下記のコマンドを実行する.  
+   ```"C:\AMDDesignTools\2026.1\Vivado\settings64.bat"```  
+   - 環境設定をした後、下記のコマンドを実行し、vivado を起動する  
+   ```vivado```  
+2. 
+
 

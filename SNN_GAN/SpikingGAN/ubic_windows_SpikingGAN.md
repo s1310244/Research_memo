@@ -34,9 +34,13 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    pip install torch==2.9.1 torchvision==0.24.1
    pip install pandas numpy matplotlib
    ```
+   tutorial通りだと上記のコマンドになるがこの環境だと```train_ann.py```実行時に```importError```が発生するので、代わりに下記のコマンドを実行する
+   ```
+   pip install torch==2.9.1 torchvision==0.24.1 pandas "numpy<2.0.0" matplotlib scipy pillow urllib3 scikit-image
+   ```
    - インストールしたライブラリを削除する方法（必ず作成した仮想環境内で実行する。さもないと、仮想環境以外の場所のライブラリも削除してしまう）  
    ```pip uninstall <library_name>```
-4. training と　convert ANN to SNN
+5. training と　convert ANN to SNN
    - ```SpikingGAN/SW-simulation/scripts```で作業する  
    - Training ANN model
    ```python train_ann.py --n_epochs 20```  
@@ -44,9 +48,9 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
      - 発生したエラー
      ```
      train_ann.py の45行目と48行目で、```root="..\mnist"```となっている
-     ```\```はエスケープ文字なので```/```に書き換える
+     "\"はエスケープ文字なので"/"に書き換える
      ```
    - Convert ANN to SNN(テストも同時に行っている)
    ```python run_snn.py```   
-5. 
+6. 
 

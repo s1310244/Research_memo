@@ -38,8 +38,7 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    ```torch```関連のライブラリをインストールするとき```--index-url https://download.pytorch.org/whl/cu121```オプションを付加する  
    (```train_ann.py```ファイル内の記述の```device = torch.device("cuda:0")```は「システムにGPUが存在するかどうか、PyTorchがCUDAに対応しているかどうかを一切確認せず、強制的に1番目のGPU（cuda:0）にデータを転送しろ」という命令なので、CUDAに対応していないPyTorchがこの命令を受け取った時、処理がクラッシュします。なのでそれに対応したPyTorchをインストールするためにこのオプションは必要です。)
    ```
-   pip install pandas "numpy<2.0.0" matplotlib scipy pillow urllib3 scikit-image
-   pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cu121
+   ..\myenv\Scripts\pip install torch torchvision pandas "numpy<2.0.0" matplotlib scipy pillow urllib3 scikit-image --index-url https://download.pytorch.org/whl/cu121
    ```
    - インストールしたライブラリを削除する方法（必ず作成した仮想環境内で実行する。さもないと、仮想環境以外の場所のライブラリも削除してしまう）  
    ```pip uninstall <library_name>```

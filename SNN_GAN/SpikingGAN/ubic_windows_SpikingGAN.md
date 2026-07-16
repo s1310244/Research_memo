@@ -34,23 +34,26 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    pip install torch==2.9.1 torchvision==0.24.1
    pip install pandas numpy matplotlib
    ```
-   tutorial通りだと上記のコマンドになるがこの環境だと```train_ann.py```実行時に```importError```が発生するので、代わりに下記のコマンドを実行する
+   tutorial通りだと上記のコマンドになるがこの環境だと```train_ann.py```実行時に```importError```が発生するので、代わりに下記のコマンドを実行する  
+   ```torch```関連のライブラリをインストールするとき```--index-url https://download.pytorch.org/whl/cu121```オプションを付加する  
+   (```train_ann.py```ファイル内の記述の```device = torch.device("cuda:0")```は「システムにGPUが存在するかどうか、PyTorchがCUDAに対応しているかどうかを一切確認せず、強制的に1番目のGPU（cuda:0）にデータを転送しろ」という命令なので、CUDAに対応していないPyTorchがこの命令を受け取った時、処理がクラッシュします。なのでそれに対応したPyTorchをインストールするためにこのオプションは必要です。)
    ```
-   pip install torch==2.9.1 torchvision==0.24.1 pandas "numpy<2.0.0" matplotlib scipy pillow urllib3 scikit-image
+   pip install pandas "numpy<2.0.0" matplotlib scipy pillow urllib3 scikit-image
+   pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cu121
    ```
    - インストールしたライブラリを削除する方法（必ず作成した仮想環境内で実行する。さもないと、仮想環境以外の場所のライブラリも削除してしまう）  
    ```pip uninstall <library_name>```
 5. training と　convert ANN to SNN
    - ```SpikingGAN/SW-simulation/scripts```で作業する  
-   - Training ANN model
+   - Training ANN model  
    ```python train_ann.py --n_epochs 20```  
      - 学習したANNは```SW-simulation/models.ANN.pth```に保存される。
-     - 発生したエラー
+     - 発生したエラー  
      ```
      train_ann.py の45行目と48行目で、```root="..\mnist"```となっている
      "\"はエスケープ文字なので"/"に書き換える
      ```
-   - Convert ANN to SNN(テストも同時に行っている)
+   - Convert ANN to SNN(テストも同時に行っている)  
    ```python run_snn.py```   
 6. 
 

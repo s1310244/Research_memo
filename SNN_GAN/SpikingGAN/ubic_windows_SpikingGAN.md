@@ -19,23 +19,29 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 ### SW
 1. 次のコマンドを```SpikingGAN/SW-simulation/scripts```下で実行する。
    ```python -m venv ../myenv```  
+   - 構築した仮想環境の削除
+   ```
+   エクスプローラーからGUIで直接作成した仮想環境フォルダ```myenv```を削除する
+   もしくは、コマンドプロンプトから```rmdir /s /q ..\myenv``` で削除する
+   ```
 2. 次に下のコマンドを実行する。(```source ../myenv/bin/activate```の代わり)  
-   ```pip```してインストールするパッケージがシステム全体ではなく myenv フォルダ内に安全に隔離されるように、環境を有効化（アクティベート）する  
+   - ```pip```してインストールするパッケージがシステム全体ではなく myenv フォルダ内に安全に隔離されるように、環境を有効化（アクティベート）する  
    ```..\myenv\Scripts\activate.bat```  
-   これが成功すれば(myenv)がコマンドラインの先頭に出現する。  
+   - これが成功すれば(myenv)がコマンドラインの先頭に出現する。
 3. 各種ライブラリをインストールする
    ```
    pip install -r ../requirements.txt
    pip install torch==2.9.1 torchvision==0.24.1
    pip install pandas numpy matplotlib
    ```
-   インストールしたライブラリを削除する方法（必ず作成した仮想環境内で実行する。さもないと、仮想環境以外の場所のライブラリも削除してしまう）  
+   - インストールしたライブラリを削除する方法（必ず作成した仮想環境内で実行する。さもないと、仮想環境以外の場所のライブラリも削除してしまう）  
    ```pip uninstall <library_name>```
 4. training と　convert ANN to SNN
-   ```SpikingGAN/SW-simulation/scripts```で作業する  
+   - ```SpikingGAN/SW-simulation/scripts```で作業する  
    - Training ANN model
    ```python train_ann.py --n_epochs 20```  
    学習したANNは```SW-simulation/models.ANN.pth```に保存される。  
-   - Convert ANN to SNN
+   - Convert ANN to SNN(テストも同時に行っている)
    ```python run_snn.py```   
+5. 
 

@@ -62,6 +62,8 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    - 上の二つのextractを実行した後、```SW-simulation/MEM```内のファイルを```RTL-simulation/Data```へコピーする  
 
 ## HW
+### RTL Simulaiton
+
 ### FPGA Implementation
 1. Open the vivado
    - ```source ~/AMDDesignTools/2026.1/Vivado/settings64.bat```の代わりに、Windows環境で AMD Vivado の環境設定を行うために下記のコマンドを実行する.  

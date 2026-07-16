@@ -1,3 +1,4 @@
+
 ```echo 'export XILINXD_LICENSE_FILE=2100@e3c-lic.u-aizu.ac.jp' >> ~/.bashrc```  
 パーツ 役割・意味  
 echo '...' シングルクォーテーションで囲まれた文字列を画面に出力（表示）するコマンド。  
@@ -17,7 +18,7 @@ echo '...' シングルクォーテーションで囲まれた文字列を画面
 - ```2100```：通信に使うポート番号
 - ```e3c-lic.u-aizu.ac.jp```：会津大学内にあるライセンスサーバーのホスト名
   
-  
+### 研究室のvivadoのライセンスをUBICのwindows11のコンピュータに適用し、有料版のvivadoをUBICのwindows11のコンピュータで使えるようにするための手引き
 環境情報  
 - windows11
 - commandprompt

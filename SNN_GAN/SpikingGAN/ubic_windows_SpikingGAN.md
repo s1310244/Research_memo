@@ -74,7 +74,10 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    - Project Type
    ```RTL_Project```を選択
    - Default Part
-   ``````
+   ```
+   AMD VCK5000 Versal™ Development Cardが良いがなかったので代替案で
+   xcvc1902-vsvd1760-2MP-e-S を選択し設定する。
+   ```
 3. ソースファイルの追加
    - ソースファイルとなる.vファイルを追加する。  
    左側にある```flow navigator``` -> ```Project Manager``` -> ```Settings``` -> ```Add Sources``` -> ソースファイルを追加 -> ```finish```

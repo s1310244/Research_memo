@@ -63,6 +63,10 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 
 ## HW
 ### RTL Simulaiton
+1. テストベンチの追加:Vivadoで「Add Sources」→「Add or create simulation sources」を選択し、tb_SNN_wrapper_csv.v を追加する。（※絶対に Design Sources には入れないこと）。
+2. シミュレーションの実行:画面左側の Flow Navigator から 「Run Simulation」 → 「Run Behavioral Simulation」 をクリックする。Vivado Simulatorが立ち上がり、波形ウィンドウが表示される。
+3. 完走とCSVの抽出:上部のメニューから「Run All」ボタンを押し、テストベンチの $finish に到達するまで時間を進める。シミュレーション完了後、Vivadoのプロジェクトフォルダ内の以下の階層に spikes.csv が生成される。[プロジェクトフォルダ]/[プロジェクト名].sim/sim_1/behav/xsim/spikes.csvPythonによる
+4. 画像再構成:出力された spikes.csv をソフトウェア側の SW-simulation/scripts/input_noise/ フォルダへコピーし、コマンドプロンプトで python image_reconstruction.py を実行する。  
 
 ### FPGA Implementation
 1. Open the vivado

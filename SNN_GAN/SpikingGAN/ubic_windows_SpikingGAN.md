@@ -1,7 +1,7 @@
 SpikingGANにあるtutorialに従いUBICのwindows環境でコマンドプロンプトを使いVCK5000に実装するまで  
 
 ### Python install
-1. インストーラーをダウンロードする:Python公式サイト (python.org) にアクセスし、黄色の「Download Python 3.x.x」ボタンを押してインストーラーをダウンロードします。  
+1. インストーラーをダウンロードする:Python公式サイト (python.org) にアクセスし、黄色の「Download Python 3.x.x」(versionは3.11もしくは3.12)ボタンを押してインストーラーをダウンロードします。  
 2. インストーラーを起動し、チェックを入れる（超重要）:これを忘れるとコマンドが認識されません。ダウンロードしたファイルを開きます。最初の画面の下部にある 「Add python.exe to PATH」 （または「Add Python 3.x to PATH」）というチェックボックスに必ずチェックを入れます。  
 3. インストールを実行する:チェックを入れたら、一番上の「Install Now」をクリックします。（すでにインストール済みの場合は「Modify」を選び、次の画面で「Add Python to environment variables」にチェックを入れて進めてください）  
 4. PCを再起動する:念のため、一度パソコンを再起動して設定を完全に反映させます。

@@ -16,7 +16,7 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 3.関連プログラムをアンインストールする:リストに表示された Python 3.x.x と Python Launcher の両方について、右端の「･･･」メニュー（またはアイコン）をクリックし、「アンインストール」を実行します。
 4.PCを再起動する:古い環境変数の設定などを完全にクリアするため、一度パソコンを再起動します。  
 ```
-
+### SW
 1. 次のコマンドを```SpikingGAN/SW-simulation/scripts```下で実行する。
    ```python -m venv ../myenv```  
 2. 次に下のコマンドを実行する。(```source ../myenv/bin/activate```の代わり)  
@@ -35,6 +35,7 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    ```SpikingGAN/SW-simulation/scripts```で作業する  
    - Training ANN model
    ```python train_ann.py --n_epochs 20```  
+   学習したANNは```SW-simulation/models.ANN.pth```に保存される。  
    - Convert ANN to SNN
    ```python run_snn.py```   
 

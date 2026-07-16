@@ -40,7 +40,12 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    - ```SpikingGAN/SW-simulation/scripts```で作業する  
    - Training ANN model
    ```python train_ann.py --n_epochs 20```  
-   学習したANNは```SW-simulation/models.ANN.pth```に保存される。  
+     - 学習したANNは```SW-simulation/models.ANN.pth```に保存される。
+     - 発生したエラー
+     ```
+     train_ann.py の45行目と48行目で、```root="..\mnist"```となっている
+     ```\```はエスケープ文字なので```/```に書き換える
+     ```
    - Convert ANN to SNN(テストも同時に行っている)
    ```python run_snn.py```   
 5. 

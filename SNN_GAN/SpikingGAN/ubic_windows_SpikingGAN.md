@@ -78,7 +78,54 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 3. ソースファイルの追加
    - ソースファイルとなる.vファイルを追加する。  
    左側にある```flow navigator``` -> ```Project Manager``` -> ```Settings``` -> ```Add Sources``` -> ソースファイルを追加 -> ```finish```
-4. 
+   <追加するソースファイル>
+   ```
+   SNN_wrapper
+		spike_rom(input_noise.mem)
+		bias_l1_rom(fc1_b.mem)
+		bias_l2_rom(fc2_b.mem)
+		bias_l3_rom(fc3_b.mem)
+		weights_l1_rom(fc1.mem)
+		weights_l2_rom(fc2.mem)
+		weights_l3_rom(fc3.mem)
+		spike_counter
+		SNPC_top
+			SNPC0
+				SNPC_cntrl
+       			LIF_neuron *64
+				xbar
+					sram_sp_w8_b64_freepdk4 (R0) 
+		/*SNPC1
+		/*	SNPC_cntrl
+    /*		LIF_neuron *64
+		/*  xbar
+		/*		sram_sp_w8_b64_freepdk4 (R0)
+		/*SNPC2
+		/*	SNPC_cntrl
+    /*		LIF_neuron *64
+		/*	xbar
+		/*		sram_sp_w8_b64_freepdk4 (R0)
+
+    input_noise.mem
+		fc1_b.mem
+		fc2_b.mem
+		fc3_b.mem
+		fc1.mem
+		fc2.mem
+		fc3.mem
+   ```
+4. corretfy the files
+   - ```SNN_wrapper.v```を右クリックし、```Set as top```に設定する。
+   - ```$readme```で使用する参照パスを自分のファイルパスに合うように修正する
+   - Error　処理
+   ```
+   Error message : [Common 17-180] Spawn failed:
+   考えらるエラー発生要因とその解決法
+     - プロジェクトの保存先パスがWindowsの制限（260文字）に近づいたり、パスの途中に「スペース」「日本語」「特殊記号」が含まれていると、プロセス起動に失敗する -> 浅い階層にprojectを作り解決する。
+     - 以前のVivadoの操作やクラッシュにより、バックグラウンドに古い vivado.exe などのプロセスが残ったままになっており、新しいプロセスの立ち上げを阻害している状態です。 -> vivadoを一度終了もしくはPCを再起動
+     - Windows Defenderなどのセキュリティソフトが、Vivadoが裏で起動しようとしたコンパイラをマルウェアの挙動と誤認して強制ブロックしているケースです。 -> 
+
+   ```
    
 
 

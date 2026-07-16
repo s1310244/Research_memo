@@ -17,7 +17,7 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 4.PCを再起動する:古い環境変数の設定などを完全にクリアするため、一度パソコンを再起動します。  
 ```
 ### SW
-1. 次のコマンドを```SpikingGAN/SW-simulation/scripts```下で実行する。
+1. 次のコマンドを```SpikingGAN/SW-simulation/scripts```下で実行する。  
    ```python -m venv ../myenv```  
    - 構築した仮想環境の削除
    ```

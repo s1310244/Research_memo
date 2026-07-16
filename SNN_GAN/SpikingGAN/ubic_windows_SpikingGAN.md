@@ -68,6 +68,15 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
    ```"C:\AMDDesignTools\2026.1\Vivado\settings64.bat"```  
    - 環境設定をした後、下記のコマンドを実行し、vivado を起動する  
    ```vivado```  
-2. 
+2. Create the new project
+   - Project Type
+   ```RTL_Project```を選択
+   - Default Part
+   ``````
+3. ソースファイルの追加
+   - ソースファイルとなる.vファイルを追加する。  
+   左側にある```flow navigator``` -> ```Project Manager``` -> ```Settings``` -> ```Add Sources``` -> ソースファイルを追加 -> ```finish```
+4. 
+   
 
 

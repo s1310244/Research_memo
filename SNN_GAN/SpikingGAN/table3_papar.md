@@ -118,5 +118,27 @@ print("\n==================================================")
 
 結果:  
 ```
+==================================================
+ Table III Data Extraction (Device: cuda:0)
+==================================================
 
+[Generated Images: 100]
+  ANN Linear Function Calls : 300
+  SNN Linear Function Calls : 10500
+  ANN Total GPU Time (ms)   : 0.20
+  SNN Total GPU Time (ms)   : 9.59
+
+[Generated Images: 500]
+  ANN Linear Function Calls : 1500
+  SNN Linear Function Calls : 52500
+  ANN Total GPU Time (ms)   : 0.43
+  SNN Total GPU Time (ms)   : 17.04
+
+[Generated Images: 1000]
+  ANN Linear Function Calls : 3000
+  SNN Linear Function Calls : 105000
+  ANN Total GPU Time (ms)   : 0.77
+  SNN Total GPU Time (ms)   : 33.47
+
+==================================================
 ```

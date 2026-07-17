@@ -135,8 +135,8 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 
    Error message : [Synth 8-9263] cannot open include file 'LIF.v' ["C:/Users/user01/SpikingGAN/RTL-simulation/RTL/LIF_neuron.v":7]
      - LIF_neuron.vで`include "LIF.v"が正しく認識されずインクルードできなかった。（これによって副次的なエラーも発生した。）
-           -> LIF.vを右クリックし"Set Global Include"を選択する
-
+           -> 全てのファイルで"include LIF.v"　と　"include common.v"が認識できていなかった。
+		          -> LIF.vとcommon.vファイルの"Source File Properties" window から"Type"項目を"Verilog Header"に変更する
    ```
    
 

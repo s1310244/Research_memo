@@ -3,56 +3,82 @@
 import torch
 import time
 
-# Device configuration (Force CUDA)
+# Device configuration
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-# Network Topology (100 -> 1200 -> 1200 -> 784)
+# Network Topology from draft_tex.pdf
 input_size = 100
 hidden1 = 1200
 hidden2 = 1200
 output_size = 784
-timesteps = 20  # Spiking timesteps
+timesteps = 35  # FIXED: Matches time_window=35 in model_fc.py
 
-# Dummy models to accurately profile hardware FLOPs and memory bandwidth
-class DummyANN(torch.nn.Module):
+class CorrectedANN(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.fc1 = torch.nn.Linear(input_size, hidden1)
         self.fc2 = torch.nn.Linear(hidden1, hidden2)
         self.fc3 = torch.nn.Linear(hidden2, output_size)
-    def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        x = torch.relu(self.fc2(x))
-        return torch.sigmoid(self.fc3(x))
+        # Matches the normalized ANN structure in run_snn.py
+        self.act = torch.nn.LeakyReLU(inplace=True) 
 
-class DummySNN(torch.nn.Module):
+    def forward(self, x):
+        x = self.act(self.fc1(x))
+        x = self.act(self.fc2(x))
+        return self.act(self.fc3(x))
+
+class CorrectedSNN(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.fc1 = torch.nn.Linear(input_size, hidden1)
         self.fc2 = torch.nn.Linear(hidden1, hidden2)
         self.fc3 = torch.nn.Linear(hidden2, output_size)
+        self.threshold = 1.0
+
+    def mem_update_dummy(self, fc_out, mem):
+        # Accurately mimics the GPU memory bandwidth stress of LIF neurons
+        mem = mem + fc_out
+        spk = (mem >= self.threshold).float()
+        mem = mem * (1.0 - spk)
+        return mem, spk
+
     def forward(self, x):
-        out = torch.zeros(x.size(0), output_size).to(x.device)
+        batch_size = x.size(0)
+        # Initialize membrane potentials
+        mem1 = torch.zeros(batch_size, hidden1, device=x.device)
+        mem2 = torch.zeros(batch_size, hidden2, device=x.device)
+        mem3 = torch.zeros(batch_size, output_size, device=x.device)
+        out_spikes = torch.zeros(batch_size, output_size, device=x.device)
+
         for t in range(timesteps):
-            v1 = self.fc1(x)
-            v2 = self.fc2(v1)
-            v3 = self.fc3(v2)
-            out += v3
-        return out
+            # Input noise is converted to binary spikes over time in reality, 
+            # but dense matrix mult simulates the worst-case GPU overhead
+            v1 = self.fc1(x) 
+            mem1, spk1 = self.mem_update_dummy(v1, mem1)
+            
+            v2 = self.fc2(spk1)
+            mem2, spk2 = self.mem_update_dummy(v2, mem2)
+            
+            v3 = self.fc3(spk2)
+            mem3, spk3 = self.mem_update_dummy(v3, mem3)
+            
+            out_spikes += spk3
+            
+        return out_spikes / timesteps
 
-ann_model = DummyANN().to(device)
-snn_model = DummySNN().to(device)
+ann_model = CorrectedANN().to(device)
+snn_model = CorrectedSNN().to(device)
 
 batch_sizes = [100, 500, 1000]
 
 print("==================================================")
-print(f" Table I Data Extraction (Device: {device})")
+print(f" Table III Data Extraction (Device: {device})")
 print("==================================================")
 
 for b in batch_sizes:
     print(f"\n[Generated Images: {b}]")
     
-    # 1. Linear Function Calls Extraction
+    # 1. Linear Function Calls Extraction (Corrected math)
     ann_calls = 3 * 1 * b
     snn_calls = 3 * timesteps * b
     print(f"  ANN Linear Function Calls : {ann_calls}")
@@ -61,7 +87,7 @@ for b in batch_sizes:
     # 2. Total GPU Time Measurement (ms)
     x = torch.randn(b, input_size).to(device)
 
-    # GPU Warmup (Crucial for accurate profiling)
+    # GPU Warmup
     for _ in range(10):
         _ = ann_model(x)
         _ = snn_model(x)
@@ -92,28 +118,5 @@ print("\n==================================================")
 
 結果:  
 ```
-..\myenv\Scripts\python profile_models.py
-==================================================
- Table I Data Extraction (Device: cuda:0)
-==================================================
 
-[Generated Images: 100]
-  ANN Linear Function Calls : 300
-  SNN Linear Function Calls : 6000
-  ANN Total GPU Time (ms)   : 0.23
-  SNN Total GPU Time (ms)   : 2.81
-
-[Generated Images: 500]
-  ANN Linear Function Calls : 1500
-  SNN Linear Function Calls : 30000
-  ANN Total GPU Time (ms)   : 0.43
-  SNN Total GPU Time (ms)   : 7.76
-
-[Generated Images: 1000]
-  ANN Linear Function Calls : 3000
-  SNN Linear Function Calls : 60000
-  ANN Total GPU Time (ms)   : 0.82
-  SNN Total GPU Time (ms)   : 14.79
-
-==================================================
 ```

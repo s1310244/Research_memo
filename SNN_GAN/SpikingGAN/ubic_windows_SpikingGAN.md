@@ -63,10 +63,71 @@ pythonの削除方法（使い終わったら自分のコンピュータでは�
 
 ## HW
 ### RTL Simulaiton
+<pattern 1>
 1. テストベンチの追加:Vivadoで「Add Sources」→「Add or create simulation sources」を選択し、tb_SNN_wrapper_csv.v を追加する。（※絶対に Design Sources には入れないこと）。
 2. シミュレーションの実行:画面左側の Flow Navigator から 「Run Simulation」 → 「Run Behavioral Simulation」 をクリックする。Vivado Simulatorが立ち上がり、波形ウィンドウが表示される。
 3. 完走とCSVの抽出:上部のメニューから「Run All」ボタンを押し、テストベンチの $finish に到達するまで時間を進める。シミュレーション完了後、Vivadoのプロジェクトフォルダ内の以下の階層に spikes.csv が生成される。[プロジェクトフォルダ]/[プロジェクト名].sim/sim_1/behav/xsim/spikes.csvPythonによる
 4. 画像再構成:出力された spikes.csv をソフトウェア側の SW-simulation/scripts/input_noise/ フォルダへコピーし、コマンドプロンプトで python image_reconstruction.py を実行する。  
+
+<pattern 2>
+結論から言う。**Windows環境内のVivadoだけで全て完結させることは完全に可能であり、むしろ手元のPCで開発を進める上ではその方が圧倒的に効率的だ。**
+
+あなたが提示した `HW.md` は、大学や企業の共有Linuxサーバー（zxp007）にSSHログインし、高価な有償シミュレータ（ModelSim / QuestaSim = `vsim`）をコマンドラインで回すための古いワークフローだ。
+
+手元のWindows PCとVivadoの無償内蔵シミュレータ（XSim）を使って、全く同じ結果（`spikes.csv`）を取得するための「Windowsネイティブ・プロトコル」を指示する。
+
+---
+
+### 【Windows / Vivado完結型シミュレーションフロー】
+
+#### Step 1: 初期データ（.mem）のVivadoへの登録
+
+Python側で生成した重み、バイアス、入力ノイズのファイル（`.mem` または `.txt`）をVivadoに認識させる。
+
+1. Windows上で通常通りPythonスクリプトを回し、パラメータを抽出する。
+2. Vivadoを開き、「Sources」ウィンドウの **「+」ボタン（Add Sources）** を押す。
+3. **「Add or create simulation sources」** を選択する。
+4. 抽出したすべての `.mem` ファイル（またはデータファイル）を追加し、「Finish」を押す。
+* *※注意:* これを忘れると、シミュレーション時にメモリが空っぽ（不定値：X）になり、スパイクが一切出力されなくなる。
+
+
+
+#### Step 2: テストベンチの登録
+
+あなたが作成した完璧なテストベンチ `tb_SNN_wrapper_csv.v` を登録する。
+
+1. 再度「Sources」ウィンドウの **「+」ボタン** を押す。
+2. **「Add or create simulation sources」** を選択する。
+3. `tb_SNN_wrapper_csv.v` を追加する。
+4. Sourcesウィンドウ内の `Simulation Sources` -> `sim_1` の階層で、`tb_SNN_wrapper_csv.v` がトップモジュール（アイコンに緑の「∴」マーク）になっていることを確認する。
+
+#### Step 3: Vivado Simulator (XSim) の実行
+
+WindowsのGUI上から直接シミュレーションを起動する。
+
+1. Vivado画面左側の「Flow Navigator」から、**「Run Simulation」** をクリックする。
+2. **「Run Behavioral Simulation」** を選択する。
+3. シミュレータの波形ウィンドウ（Waveform）が立ち上がる。
+4. 画面上部のメニューバーにある **「Run All」ボタン**（再生マークと下矢印のアイコン、ショートカット `F3`）を押す。
+5. テストベンチ内の `$finish;` に到達するまで時間が進み、シミュレーションが自動的に停止する。
+
+#### Step 4: `spikes.csv` の発掘（超重要）
+
+Windows版Vivadoにおいて、`$fopen("spikes.csv", "w")` で書き出されたファイルは、プロジェクトの奥深くに保存される。以下のパスをエクスプローラーで開け。
+
+* **保存先パス:** `[あなたのVivadoプロジェクトフォルダ]\[プロジェクト名].sim\sim_1\behav\xsim\spikes.csv`
+ここを開けば、発火時刻とニューロンIDが記録されたCSVファイルが物理的に生成されているはずだ。
+
+#### Step 5: 画像の復元
+
+1. 見つけ出した `spikes.csv` をコピーし、Windows上のPythonスクリプト（`image_reconstruction.py`）があるディレクトリに配置する。
+2. WindowsのコマンドプロンプトやPowerShell（またはVS Codeのターミナル）から、通常通り `python image_reconstruction.py` を実行する。
+3. ハードウェアの挙動を完全に再現した `hw_gen.png` が生成される。
+
+---
+
+この手順に従えば、LinuxサーバーもMakefileも一切不要だ。すべてあなたの目の前にあるWindowsのVivado上で完結する。
+まずはStep 1〜3を実行し、シミュレーションを完走させろ。VivadoのTcl Consoleにエラーが出ず、波形が表示されたら報告してほしい。
 
 ### FPGA Implementation
 1. Open the vivado

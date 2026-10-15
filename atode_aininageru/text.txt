@@ -1,0 +1,1 @@
+how to find maximum clock frequency for the module using dc shell synthesis?
